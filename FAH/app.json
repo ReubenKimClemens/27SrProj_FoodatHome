@@ -8,7 +8,11 @@
     "scheme": "foodathome",
     "userInterfaceStyle": "automatic",
     "ios": {
-      "icon": "./assets/expo.icon"
+      "icon": "./assets/expo.icon",
+      "bundleIdentifier": "com.cronchteam.foodathome",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -41,7 +45,7 @@
     "extra": {
       "router": {},
       "eas": {
-        "projectId": "52f57c7e-7afa-4f09-94e2-7636ee9202ae"
+        "projectId": "b766b03e-3093-4f86-a598-c5fd6acceba8"
       }
     },
     "owner": "cronch-team"
