@@ -25,7 +25,7 @@ const ICONS: Record<string, NavIcons> = {
   },
 };
 
-const SCAN_ROUTE = "scan";
+const SCAN_ROUTE = "receipt";
 
 export default function NavigationBar({ state, descriptors, navigation, insets }: BottomTabBarProps) {
   return (
