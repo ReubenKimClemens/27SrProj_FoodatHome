@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { CategoryBadge } from "@/components/CategoryBadge";
 import { addedText } from "@/lib/mockInventory";
 import { COLORS } from "@/lib/theme";
+import { Typography } from "@/constants/theme";
 
 type InventoryItemCardProps = {
   itemName: string;
@@ -31,8 +32,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.pageSecondary,
   },
   itemName: {
-    fontSize: 18,
-    fontWeight: "700",
+    ...Typography.titleSm,
     color: COLORS.textDefault,
   },
   meta: {
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     gap: 6,
   },
   metaText: {
-    fontSize: 14,
+    ...Typography.bodySm,
     color: COLORS.textSecondary,
   },
 });

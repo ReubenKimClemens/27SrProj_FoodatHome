@@ -5,6 +5,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { IconButton } from "@/components/IconButton";
 import { ScanningTips } from "@/components/ScanningTips";
 import { COLORS } from "@/lib/theme";
+import { Layout, Typography } from "@/constants/theme";
 
 export default function ScanningTipsScreen() {
   return (
@@ -25,7 +26,7 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     backgroundColor: COLORS.pagePrimary,
-    paddingHorizontal: 16,
+    paddingHorizontal: Layout.pagePadding,
   },
   heading: {
     alignItems: "center",
@@ -37,8 +38,7 @@ const styles = StyleSheet.create({
     left: 0,
   },
   title: {
-    fontSize: 24,
-    fontWeight: "700",
+    ...Typography.titleLg,
     color: COLORS.textDefault,
   },
   content: {

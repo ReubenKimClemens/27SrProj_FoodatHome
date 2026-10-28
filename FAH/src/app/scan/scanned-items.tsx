@@ -5,6 +5,7 @@ import { IconButton } from "@/components/IconButton";
 import { ReceiptItemsReview } from "@/components/ReceiptItemsReview";
 import { COLORS } from "@/lib/theme";
 import { useReceiptItemEditor } from "@/lib/useReceiptItemEditor";
+import { Typography } from "@/constants/theme";
 
 export default function ScannedItemsScreen() {
   const editor = useReceiptItemEditor();
@@ -50,12 +51,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   storeName: {
-    fontSize: 20,
-    fontWeight: "700",
+    ...Typography.titleMd,
     color: COLORS.textDefault,
   },
   subtitle: {
-    fontSize: 14,
+    ...Typography.bodySm,
     color: COLORS.textSecondary,
   },
 });

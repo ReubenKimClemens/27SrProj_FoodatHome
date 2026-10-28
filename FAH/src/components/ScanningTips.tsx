@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 
 import { COLORS, SHADOW } from "@/lib/theme";
+import { Typography } from "@/constants/theme";
 
 const TIPS = [
   {
@@ -63,24 +64,19 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   numberText: {
+    ...Typography.titleMd,
     color: COLORS.brandSecondary,
-    fontSize: 20,
-    fontWeight: "700",
   },
   content: {
     flex: 1,
     gap: 4,
   },
   title: {
+    ...Typography.titleSm,
     color: COLORS.textDefault,
-    fontSize: 18,
-    fontWeight: "700",
-    lineHeight: 24,
   },
   description: {
+    ...Typography.bodySm,
     color: COLORS.textSecondary,
-    fontSize: 14,
-    fontWeight: "500",
-    lineHeight: 18,
   },
 });

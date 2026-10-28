@@ -7,6 +7,7 @@ import { EditDeleteItemCard } from "@/components/EditDeleteItemCard";
 import { ItemModal } from "@/components/ItemModal";
 import { COLORS } from "@/lib/theme";
 import type { useReceiptItemEditor } from "@/lib/useReceiptItemEditor";
+import { Layout, Typography } from "@/constants/theme";
 
 type ReceiptItemsReviewProps = {
   editor: ReturnType<typeof useReceiptItemEditor>;
@@ -58,7 +59,7 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     backgroundColor: COLORS.pagePrimary,
-    paddingHorizontal: 16,
+    paddingHorizontal: Layout.pagePadding,
     paddingBottom: 16,
     gap: 12,
   },
@@ -72,14 +73,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 2,
   },
   empty: {
+    ...Typography.bodyMd,
     textAlign: "center",
     color: COLORS.textSecondary,
-    fontSize: 15,
     marginTop: 32,
   },
   saveError: {
+    ...Typography.bodySm,
     color: COLORS.textDanger,
-    fontSize: 14,
     textAlign: "center",
   },
 });

@@ -6,6 +6,7 @@ import { scheduleOnRN } from "react-native-worklets";
 
 import { InventoryItemCard } from "@/components/InventoryItemCard";
 import { COLORS, RADIUS, SHADOW } from "@/lib/theme";
+import { Typography } from "@/constants/theme";
 
 const ACTION_WIDTH = 120;
 const SWIPE_THRESHOLD = 60;
@@ -120,8 +121,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FF9040",
   },
   actionText: {
+    ...Typography.bodyMdBold,
     color: COLORS.white,
-    fontWeight: "700",
-    fontSize: 15,
   },
 });

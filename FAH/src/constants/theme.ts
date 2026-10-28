@@ -22,6 +22,27 @@ export const Fonts = {
   nunitoBold: "Nunito_700Bold",
 };
 
+export const Typography = {
+  titleXl: { fontFamily: Fonts.quicksandBold, fontSize: 32, lineHeight: 40 },
+  titleLg: { fontFamily: Fonts.quicksandBold, fontSize: 24, lineHeight: 32 },
+  titleMd: { fontFamily: Fonts.quicksandBold, fontSize: 20, lineHeight: 24 },
+  titleSm: { fontFamily: Fonts.nunitoBold, fontSize: 18, lineHeight: 24 },
+  button: { fontFamily: Fonts.quicksandBold, fontSize: 18, lineHeight: 24 },
+  bodyLg: { fontFamily: Fonts.nunitoMedium, fontSize: 20, lineHeight: 24 },
+  bodyLgBold: { fontFamily: Fonts.nunitoBold, fontSize: 20, lineHeight: 24 },
+  bodyMd: { fontFamily: Fonts.nunitoMedium, fontSize: 16, lineHeight: 20 },
+  bodyMdBold: { fontFamily: Fonts.nunitoBold, fontSize: 16, lineHeight: 20 },
+  bodySm: { fontFamily: Fonts.nunitoMedium, fontSize: 14, lineHeight: 16 },
+  bodySmBold: { fontFamily: Fonts.nunitoBold, fontSize: 14, lineHeight: 16 },
+  bodyXsm: { fontFamily: Fonts.nunitoMedium, fontSize: 12, lineHeight: 16 },
+  bodyXsmBold: { fontFamily: Fonts.nunitoBold, fontSize: 12, lineHeight: 16 },
+};
+
+export const Layout = {
+  pagePadding: 24,
+  sectionGap: 24,
+};
+
 export const Shadows = {
   card: "0px 1px 4px rgba(12, 12, 13, 0.05), 0px 1px 4px rgba(12, 12, 13, 0.10)",
   navBar: "0px -1px 4px rgba(0, 0, 0, 0.1), 0px -1px 2px rgba(0, 0, 0, 0.06)",

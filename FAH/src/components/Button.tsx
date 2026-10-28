@@ -1,6 +1,7 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
 import { COLORS, RADIUS } from "@/lib/theme";
+import { Typography } from "@/constants/theme";
 
 type Variant = "primary" | "outline" | "secondary" | "danger";
 
@@ -79,8 +80,7 @@ const styles = StyleSheet.create({
     opacity: 0.5,
   },
   label: {
-    fontSize: 16,
-    fontWeight: "700",
+    ...Typography.button,
   },
   labelLight: {
     color: COLORS.white,

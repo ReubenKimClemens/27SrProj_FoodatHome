@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { CategoryBadge } from "@/components/CategoryBadge";
 import { IconButton } from "@/components/IconButton";
 import { COLORS, RADIUS, SHADOW } from "@/lib/theme";
+import { Typography } from "@/constants/theme";
 
 type EditDeleteItemCardProps = {
   itemName: string;
@@ -61,8 +62,7 @@ const styles = StyleSheet.create({
     gap: 6,
   },
   itemName: {
-    fontSize: 18,
-    fontWeight: "700",
+    ...Typography.titleSm,
     color: COLORS.textDefault,
   },
   footer: {
@@ -71,8 +71,7 @@ const styles = StyleSheet.create({
     gap: 6,
   },
   quantity: {
-    fontSize: 15,
-    fontWeight: "700",
+    ...Typography.bodyMdBold,
     color: COLORS.textSecondary,
   },
   right: {
@@ -81,8 +80,7 @@ const styles = StyleSheet.create({
     gap: 6,
   },
   price: {
-    fontSize: 18,
-    fontWeight: "700",
+    ...Typography.titleSm,
     color: COLORS.textDefault,
   },
   actions: {

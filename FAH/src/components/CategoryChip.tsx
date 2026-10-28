@@ -2,6 +2,7 @@ import { Pressable, StyleSheet, Text } from "react-native";
 
 import { getCategoryColor } from "@/lib/categories";
 import { COLORS } from "@/lib/theme";
+import { Typography } from "@/constants/theme";
 
 type CategoryChipProps = {
   name: string;
@@ -32,7 +33,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   text: {
-    fontSize: 14,
-    fontWeight: "700",
+    ...Typography.bodySmBold,
   },
 });

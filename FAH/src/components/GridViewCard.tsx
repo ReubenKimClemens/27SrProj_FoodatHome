@@ -3,6 +3,7 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 import { CategoryBadge } from "@/components/CategoryBadge";
 import { addedText } from "@/lib/mockInventory";
 import { COLORS, RADIUS, SHADOW } from "@/lib/theme";
+import { Typography } from "@/constants/theme";
 
 type GridViewCardProps = {
   itemName: string;
@@ -48,18 +49,16 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   countText: {
+    ...Typography.bodySmBold,
     color: COLORS.brandSecondary,
-    fontSize: 14,
-    fontWeight: "700",
   },
   name: {
-    fontSize: 16,
-    fontWeight: "700",
+    ...Typography.bodyMdBold,
     color: COLORS.textDefault,
     textAlign: "center",
   },
   added: {
-    fontSize: 14,
+    ...Typography.bodySm,
     color: COLORS.textSecondary,
   },
 });

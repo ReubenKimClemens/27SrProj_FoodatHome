@@ -20,6 +20,7 @@ type Props = {
   budget: number;
   lastMonthSpent: number;
   onBudgetChange: (newBudget: number) => void;
+  showTitle?: boolean;
 };
 
 const MAX_BUDGET = 99999;
@@ -39,7 +40,7 @@ function normalizeBudgetInput(value: string) {
   return `${limitedWhole}.${fractionParts.join("").slice(0, 2)}`;
 }
 
-export default function BudgetCard({ spent, budget, lastMonthSpent, onBudgetChange }: Props) {
+export default function BudgetCard({ spent, budget, lastMonthSpent, onBudgetChange, showTitle = true }: Props) {
   const insets = useSafeAreaInsets();
   const [showModal, setShowModal] = useState(false);
   const [budgetInput, setBudgetInput] = useState("");
@@ -97,7 +98,7 @@ export default function BudgetCard({ spent, budget, lastMonthSpent, onBudgetChan
 
   return (
     <View style={styles.budgetCheck}>
-      <Text style={styles.sectionTitle}>Budget Check</Text>
+      {showTitle ? <Text style={styles.sectionTitle}>Budget Check</Text> : null}
 
       <View
         style={[

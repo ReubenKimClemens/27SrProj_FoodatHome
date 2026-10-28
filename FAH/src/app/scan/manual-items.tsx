@@ -7,6 +7,7 @@ import { ReceiptItemsReview } from "@/components/ReceiptItemsReview";
 import { setReceiptDraft } from "@/lib/receiptDraft";
 import { COLORS } from "@/lib/theme";
 import { useReceiptItemEditor } from "@/lib/useReceiptItemEditor";
+import { Typography } from "@/constants/theme";
 
 function today() {
   const now = new Date();
@@ -68,8 +69,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   title: {
-    fontSize: 20,
-    fontWeight: "700",
+    ...Typography.titleMd,
     color: COLORS.textDefault,
   },
   row: {
@@ -85,13 +85,11 @@ const styles = StyleSheet.create({
     paddingBottom: 6,
   },
   totalLabel: {
-    fontSize: 16,
-    fontWeight: "700",
+    ...Typography.bodyMdBold,
     color: COLORS.textDefault,
   },
   totalValue: {
-    fontSize: 20,
-    fontWeight: "700",
+    ...Typography.titleMd,
     color: COLORS.textDefault,
   },
 });

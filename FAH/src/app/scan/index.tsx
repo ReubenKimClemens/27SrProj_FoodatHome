@@ -14,6 +14,7 @@ import { resetReceiptDraft } from "@/lib/receiptDraft";
 import { parseReceipt } from "@/lib/receiptParser";
 import { COLORS, RADIUS } from "@/lib/theme";
 import { itemFromForm } from "@/lib/useReceiptItemEditor";
+import { Fonts, Layout, Typography } from "@/constants/theme";
 
 const PICKER_OPTIONS: ImagePicker.ImagePickerOptions = { mediaTypes: ["images"], quality: 0.7 };
 
@@ -137,7 +138,7 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     backgroundColor: COLORS.pagePrimary,
-    paddingHorizontal: 16,
+    paddingHorizontal: Layout.pagePadding,
     paddingBottom: 16,
     alignItems: "center",
     justifyContent: "space-between",
@@ -167,7 +168,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
   },
   placeholderText: {
-    fontSize: 15,
+    ...Typography.bodyMd,
     color: COLORS.textSecondary,
     textAlign: "center",
   },
@@ -180,12 +181,12 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   scanningText: {
-    fontSize: 16,
+    ...Typography.bodyMd,
     color: COLORS.textSecondary,
   },
   errorMsg: {
+    ...Typography.bodySm,
     color: COLORS.textDanger,
-    fontSize: 14,
     textAlign: "center",
   },
   bottom: {
@@ -199,16 +200,15 @@ const styles = StyleSheet.create({
     gap: 6,
   },
   tipsText: {
-    fontSize: 15,
+    ...Typography.bodyMd,
     color: COLORS.textDefault,
   },
   bold: {
-    fontWeight: "700",
+    fontFamily: Fonts.nunitoBold,
   },
   uploadLink: {
+    ...Typography.bodyMdBold,
     textAlign: "center",
-    fontSize: 15,
-    fontWeight: "600",
     color: COLORS.brandPrimary,
     textDecorationLine: "underline",
   },

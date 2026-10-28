@@ -11,6 +11,7 @@ import { SwipeableItem } from "@/components/SwipeableItem";
 import { CATEGORIES } from "@/lib/categories";
 import { SAMPLE_INVENTORY, type InventoryItem } from "@/lib/mockInventory";
 import { COLORS, RADIUS } from "@/lib/theme";
+import { Layout, Typography } from "@/constants/theme";
 
 type SortOrder = "Newest First" | "Oldest First";
 
@@ -221,19 +222,18 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.pagePrimary,
   },
   content: {
-    paddingHorizontal: 16,
+    paddingHorizontal: Layout.pagePadding,
     paddingBottom: 32,
-    gap: 12,
+    gap: 16,
   },
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingTop: 8,
+    paddingTop: 16,
   },
   title: {
-    fontSize: 28,
-    fontWeight: "700",
+    ...Typography.titleLg,
     color: COLORS.textDefault,
   },
   search: {
@@ -247,9 +247,9 @@ const styles = StyleSheet.create({
     borderRadius: RADIUS.rounded,
   },
   searchInput: {
+    ...Typography.bodyMd,
     flex: 1,
     paddingVertical: 10,
-    fontSize: 16,
     color: COLORS.textDefault,
   },
   chips: {
@@ -272,7 +272,7 @@ const styles = StyleSheet.create({
     borderRadius: RADIUS.rounded,
   },
   sortText: {
-    fontSize: 15,
+    ...Typography.bodyMd,
     color: COLORS.textDefault,
   },
   toggle: {
@@ -291,7 +291,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.brandPrimary,
   },
   tip: {
-    fontSize: 13,
+    ...Typography.bodyXsm,
     color: COLORS.textSecondary,
     textAlign: "center",
   },
@@ -302,15 +302,15 @@ const styles = StyleSheet.create({
     rowGap: 16,
   },
   empty: {
+    ...Typography.bodyMd,
     textAlign: "center",
     color: COLORS.textSecondary,
-    fontSize: 15,
     marginTop: 24,
   },
   toast: {
     position: "absolute",
-    left: 16,
-    right: 16,
+    left: Layout.pagePadding,
+    right: Layout.pagePadding,
     bottom: 24,
     flexDirection: "row",
     justifyContent: "space-between",
@@ -321,13 +321,12 @@ const styles = StyleSheet.create({
     borderRadius: RADIUS.rounded,
   },
   toastText: {
+    ...Typography.bodyMd,
     color: COLORS.white,
-    fontSize: 15,
   },
   toastUndo: {
+    ...Typography.bodyMdBold,
     color: COLORS.white,
-    fontSize: 15,
-    fontWeight: "700",
     textDecorationLine: "underline",
   },
 });

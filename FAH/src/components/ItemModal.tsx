@@ -9,6 +9,7 @@ import { IconButton } from "@/components/IconButton";
 import { InputField } from "@/components/InputField";
 import { CATEGORIES } from "@/lib/categories";
 import { COLORS, RADIUS } from "@/lib/theme";
+import { Typography } from "@/constants/theme";
 
 export type ItemFormData = {
   itemName: string;
@@ -261,8 +262,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   title: {
-    fontSize: 22,
-    fontWeight: "700",
+    ...Typography.titleLg,
     color: COLORS.textDefault,
   },
   closeBtn: {
@@ -291,8 +291,7 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   label: {
-    fontSize: 16,
-    fontWeight: "700",
+    ...Typography.bodyMdBold,
     color: COLORS.textDefault,
   },
   required: {
@@ -304,7 +303,7 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   errorText: {
-    fontSize: 12,
+    ...Typography.bodyXsm,
     color: COLORS.textDanger,
   },
   quantityRow: {
@@ -329,14 +328,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   stepText: {
-    fontSize: 20,
+    ...Typography.bodyLg,
     color: COLORS.textDefault,
   },
   qtyInput: {
+    ...Typography.bodyMdBold,
     width: 40,
     textAlign: "center",
-    fontSize: 16,
-    fontWeight: "600",
     color: COLORS.textDefault,
   },
   unitCol: {
@@ -347,8 +345,8 @@ const styles = StyleSheet.create({
     textAlignVertical: "top",
   },
   formError: {
+    ...Typography.bodySm,
     textAlign: "center",
-    fontSize: 14,
     color: COLORS.textDanger,
   },
   actions: {

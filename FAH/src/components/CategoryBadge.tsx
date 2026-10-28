@@ -1,6 +1,7 @@
 import { StyleSheet, Text } from "react-native";
 
 import { getCategoryColor } from "@/lib/categories";
+import { Typography } from "@/constants/theme";
 
 export function CategoryBadge({ category }: { category: string }) {
   const color = getCategoryColor(category);
@@ -9,8 +10,7 @@ export function CategoryBadge({ category }: { category: string }) {
 
 const styles = StyleSheet.create({
   badge: {
-    fontSize: 13,
-    fontWeight: "700",
+    ...Typography.bodySmBold,
     paddingVertical: 3,
     paddingHorizontal: 10,
     borderRadius: 6,

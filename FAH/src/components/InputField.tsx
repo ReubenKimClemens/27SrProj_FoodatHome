@@ -2,6 +2,7 @@ import { useState } from "react";
 import { StyleSheet, Text, TextInput, View, type TextInputProps } from "react-native";
 
 import { COLORS, RADIUS } from "@/lib/theme";
+import { Typography } from "@/constants/theme";
 
 type InputFieldProps = TextInputProps & {
   label?: string;
@@ -44,14 +45,14 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   label: {
-    fontSize: 16,
-    fontWeight: "700",
+    ...Typography.bodyMdBold,
     color: COLORS.textDefault,
   },
   required: {
     color: COLORS.textDanger,
   },
   input: {
+    ...Typography.bodyMd,
     minHeight: 46,
     paddingVertical: 12,
     paddingHorizontal: 16,
@@ -59,7 +60,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: COLORS.borderSecondary,
     borderRadius: RADIUS.rounded,
-    fontSize: 16,
     color: COLORS.textDefault,
   },
   inputFocused: {
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.bgDanger,
   },
   error: {
-    fontSize: 12,
+    ...Typography.bodyXsm,
     color: COLORS.textDanger,
   },
 });
