@@ -4,6 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import PageHeader from "@/components/PageHeader";
 import { Colors, Layout, Shadows, Typography } from "@/constants/theme";
+import { signOut } from "@/lib/auth";
 
 const achievements = [
   { id: "fah", title: "Do you have FAH?" },
@@ -93,7 +94,7 @@ export default function ProfileScreen() {
                 label={item.label}
                 icon={item.icon}
                 isLast={i === settingItems.length - 1}
-                onPress={() => console.log(item.label)}
+                onPress={() => (item.label === "Sign Out" ? signOut() : console.log(item.label))}
               />
             ))}
           </View>
