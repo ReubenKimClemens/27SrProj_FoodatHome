@@ -27,7 +27,7 @@ const ICONS: Record<string, NavIcons> = {
 
 const SCAN_ROUTE = "receipt";
 
-export default function NavigationBar({ state, descriptors, navigation, insets }: BottomTabBarProps) {
+export default function NavigationBar({ state, descriptors, emitter, navigateToTab, insets }: BottomTabBarProps) {
   return (
     <View style={[styles.navbar, { paddingBottom: 16 + insets.bottom }]}>
       {state.routes.map((route, index) => {
@@ -37,13 +37,13 @@ export default function NavigationBar({ state, descriptors, navigation, insets }
         const isScan = route.name === SCAN_ROUTE;
 
         function onPress() {
-          const event = navigation.emit({
+          const event = emitter.emit({
             type: "tabPress",
             target: route.key,
             canPreventDefault: true,
           });
           if (!isFocused && !event.defaultPrevented) {
-            navigation.navigate(route.name, route.params);
+            navigateToTab(route.key);
           }
         }
 
