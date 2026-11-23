@@ -1,5 +1,5 @@
 import { Image } from "expo-image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -15,12 +15,22 @@ function toE164(input: string): string | null {
   return digits.length === 10 ? `+1${digits}` : null;
 }
 
+const RESEND_SECONDS = 30;
+
 export default function LoginScreen() {
   const [phoneInput, setPhoneInput] = useState("");
   const [phone, setPhone] = useState<string | null>(null);
   const [code, setCode] = useState("");
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
+  // Seconds until "Resend code" works again. Each text costs money.
+  const [resendIn, setResendIn] = useState(0);
+
+  useEffect(() => {
+    if (resendIn <= 0) return;
+    const timer = setTimeout(() => setResendIn((s) => s - 1), 1000);
+    return () => clearTimeout(timer);
+  }, [resendIn]);
 
   async function run(action: () => Promise<void>) {
     setError("");
@@ -40,6 +50,15 @@ export default function LoginScreen() {
     run(async () => {
       await sendPhoneCode(e164);
       setPhone(e164);
+      setResendIn(RESEND_SECONDS);
+    });
+  }
+
+  function handleResend() {
+    if (!phone || busy || resendIn > 0) return;
+    run(async () => {
+      await sendPhoneCode(phone);
+      setResendIn(RESEND_SECONDS);
     });
   }
 
@@ -94,8 +113,8 @@ export default function LoginScreen() {
                 />
                 <Button label="Verify" onPress={handleVerify} disabled={busy || code.length !== 6} />
                 <View style={styles.linkRow}>
-                  <Text style={styles.link} onPress={busy ? undefined : () => run(() => sendPhoneCode(phone))}>
-                    Resend code
+                  <Text style={[styles.link, resendIn > 0 && styles.linkDisabled]} onPress={handleResend}>
+                    {resendIn > 0 ? `Resend code in ${resendIn}s` : "Resend code"}
                   </Text>
                   <Text style={styles.link} onPress={busy ? undefined : changeNumber}>
                     Change number
@@ -151,5 +170,8 @@ const styles = StyleSheet.create({
   link: {
     ...Typography.bodySmBold,
     color: COLORS.brandPrimary,
+  },
+  linkDisabled: {
+    color: COLORS.textSecondary,
   },
 });

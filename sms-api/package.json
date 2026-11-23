@@ -1,0 +1,12 @@
+{
+  "name": "fah-sms-api",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "twilio serverless:start",
+    "deploy": "twilio serverless:deploy"
+  },
+  "dependencies": {
+    "@twilio/runtime-handler": "2.1.0"
+  }
+}
