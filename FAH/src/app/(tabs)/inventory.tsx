@@ -57,7 +57,7 @@ export default function InventoryScreen() {
       return sortOrder === "Newest First" ? diff : -diff;
     });
 
-  function handleDelete(itemId: number) {
+  function handleDelete(itemId: string) {
     setAllItems((current) => current.filter((item) => item.id !== itemId));
   }
 
@@ -71,7 +71,7 @@ export default function InventoryScreen() {
 
   function handleAdd(data: ItemFormData) {
     const newItem: InventoryItem = {
-      id: Date.now(),
+      id: String(Date.now()),
       ...fieldsFromForm(data),
       createdAt: dateInputToIso(data.date) ?? new Date().toISOString(),
     };
