@@ -1,7 +1,7 @@
 // All Supabase reads and writes for the inventory, home and scan screens.
 // Data belongs to a household, so every query is scoped to the user's household.
 import { CATEGORIES, type Category } from "@/lib/categories";
-import type { InventoryItem } from "@/lib/mockInventory";
+import type { InventoryItem } from "@/lib/inventory";
 import type { ReceiptItem } from "@/lib/receiptParser";
 import { supabase } from "@/lib/supabase";
 

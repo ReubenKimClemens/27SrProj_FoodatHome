@@ -1,7 +1,7 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
 import { CategoryBadge } from "@/components/CategoryBadge";
-import { addedText } from "@/lib/mockInventory";
+import { addedText } from "@/lib/inventory";
 import { COLORS, RADIUS, SHADOW } from "@/lib/theme";
 import { Typography } from "@/constants/theme";
 

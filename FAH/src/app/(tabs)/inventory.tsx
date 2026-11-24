@@ -1,5 +1,6 @@
 import { Feather } from "@expo/vector-icons";
-import { useRef, useState } from "react";
+import { useFocusEffect } from "expo-router";
+import { useCallback, useRef, useState } from "react";
 import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -9,7 +10,8 @@ import { IconButton } from "@/components/IconButton";
 import { ItemModal, type ItemFormData } from "@/components/ItemModal";
 import { SwipeableItem } from "@/components/SwipeableItem";
 import { CATEGORIES } from "@/lib/categories";
-import { SAMPLE_INVENTORY, type InventoryItem } from "@/lib/mockInventory";
+import { addInventoryItem, deleteInventoryItem, getInventory, updateInventoryItem } from "@/lib/foodData";
+import type { InventoryItem } from "@/lib/inventory";
 import { COLORS, RADIUS } from "@/lib/theme";
 import { Layout, Typography } from "@/constants/theme";
 
@@ -37,8 +39,14 @@ function fieldsFromForm(data: ItemFormData) {
   };
 }
 
+function errorMessage(e: unknown): string {
+  return e instanceof Error ? e.message : "Something went wrong.";
+}
+
 export default function InventoryScreen() {
-  const [allItems, setAllItems] = useState<InventoryItem[]>(SAMPLE_INVENTORY);
+  const [allItems, setAllItems] = useState<InventoryItem[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
   const [view, setView] = useState<"list" | "grid">("list");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [sortOrder, setSortOrder] = useState<SortOrder>("Newest First");
@@ -57,28 +65,72 @@ export default function InventoryScreen() {
       return sortOrder === "Newest First" ? diff : -diff;
     });
 
+  // Reload every time the tab opens so items saved from Scan show up
+  useFocusEffect(
+    useCallback(() => {
+      getInventory()
+        .then((items) => {
+          setAllItems(items);
+          setError("");
+        })
+        .catch((e) => setError(errorMessage(e)))
+        .finally(() => setLoading(false));
+    }, []),
+  );
+
+  // Show the change right away, put it back if the save fails
+  async function saveOrUndo(nextItems: InventoryItem[], save: () => Promise<void>) {
+    const before = allItems;
+    setAllItems(nextItems);
+    setError("");
+    try {
+      await save();
+    } catch (e) {
+      setAllItems(before);
+      setError(errorMessage(e));
+    }
+  }
+
   function handleDelete(itemId: string) {
-    setAllItems((current) => current.filter((item) => item.id !== itemId));
+    saveOrUndo(
+      allItems.filter((item) => item.id !== itemId),
+      () => deleteInventoryItem(itemId),
+    );
   }
 
   function consumeOne(item: InventoryItem) {
     if (item.quantity <= 1) {
       handleDelete(item.id);
-    } else {
-      setAllItems((current) => current.map((i) => (i.id === item.id ? { ...i, quantity: i.quantity - 1 } : i)));
+      return;
     }
+    const updated = { ...item, quantity: item.quantity - 1 };
+    saveOrUndo(
+      allItems.map((i) => (i.id === item.id ? updated : i)),
+      () => updateInventoryItem(updated),
+    );
   }
 
-  function handleAdd(data: ItemFormData) {
-    const newItem: InventoryItem = {
-      id: String(Date.now()),
+  async function handleAdd(data: ItemFormData) {
+    const fields = {
       ...fieldsFromForm(data),
       createdAt: dateInputToIso(data.date) ?? new Date().toISOString(),
     };
-    setAllItems((current) => [...current, newItem]);
-    setLastAddedItem(newItem);
-    if (toastTimer.current) clearTimeout(toastTimer.current);
-    toastTimer.current = setTimeout(() => setLastAddedItem(null), 4000);
+    // Show it right away with a temporary id, then swap in the saved row
+    const tempId = `temp-${Date.now()}`;
+    setAllItems((current) => [...current, { id: tempId, ...fields }]);
+    setError("");
+
+    try {
+      const saved = await addInventoryItem(fields);
+      setAllItems((current) => current.map((item) => (item.id === tempId ? saved : item)));
+      // Only offer Undo once it has a real id to delete
+      setLastAddedItem(saved);
+      if (toastTimer.current) clearTimeout(toastTimer.current);
+      toastTimer.current = setTimeout(() => setLastAddedItem(null), 4000);
+    } catch (e) {
+      setAllItems((current) => current.filter((item) => item.id !== tempId));
+      setError(errorMessage(e));
+    }
   }
 
   function handleUndoAdd() {
@@ -89,12 +141,14 @@ export default function InventoryScreen() {
 
   function handleEdit(data: ItemFormData) {
     if (!editingItem) return;
-    setAllItems((current) =>
-      current.map((item) =>
-        item.id === editingItem.id
-          ? { ...item, ...fieldsFromForm(data), createdAt: dateInputToIso(data.date) ?? item.createdAt }
-          : item,
-      ),
+    const updated = {
+      ...editingItem,
+      ...fieldsFromForm(data),
+      createdAt: dateInputToIso(data.date) ?? editingItem.createdAt,
+    };
+    saveOrUndo(
+      allItems.map((item) => (item.id === updated.id ? updated : item)),
+      () => updateInventoryItem(updated),
     );
   }
 
@@ -105,6 +159,8 @@ export default function InventoryScreen() {
           <Text style={styles.title}>Inventory</Text>
           <IconButton name="plus" label="Add new item" onPress={() => setAddModalOpen(true)} size={28} />
         </View>
+
+        {error ? <Text style={styles.error}>{error}</Text> : null}
 
         <View style={styles.search}>
           <Feather name="search" size={18} color={COLORS.textSecondary} />
@@ -185,7 +241,9 @@ export default function InventoryScreen() {
           </View>
         )}
 
-        {filteredAndSortedItems.length === 0 ? <Text style={styles.empty}>No items found.</Text> : null}
+        {filteredAndSortedItems.length === 0 ? (
+          <Text style={styles.empty}>{loading ? "Loading…" : "No items found."}</Text>
+        ) : null}
       </ScrollView>
 
       {lastAddedItem ? (
@@ -300,6 +358,10 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: "space-between",
     rowGap: 16,
+  },
+  error: {
+    ...Typography.bodySm,
+    color: COLORS.textDanger,
   },
   empty: {
     ...Typography.bodyMd,
