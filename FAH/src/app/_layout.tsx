@@ -7,19 +7,22 @@ import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
-import { useAuthUser } from "@/lib/auth";
+import { useAuthLoaded, useAuthUser } from "@/lib/auth";
 
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({ Quicksand_700Bold, Nunito_500Medium, Nunito_700Bold });
   const user = useAuthUser();
+  // Wait for the saved login so the login screen doesn't flash first
+  const authLoaded = useAuthLoaded();
+  const ready = (loaded || !!error) && authLoaded;
 
   useEffect(() => {
-    if (loaded || error) SplashScreen.hideAsync();
-  }, [loaded, error]);
+    if (ready) SplashScreen.hideAsync();
+  }, [ready]);
 
-  if (!loaded && !error) return null;
+  if (!ready) return null;
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
